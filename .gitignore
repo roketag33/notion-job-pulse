@@ -1,0 +1,11 @@
+node_modules
+dist
+coverage
+.env
+*.log
+.DS_Store
+*.db
+*.db-journal
+debug_*.txt
+debug_*.json
+test_update.ts

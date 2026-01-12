@@ -1,0 +1,5 @@
+
+> scrapperoffre@1.0.0 typecheck
+> tsc --noEmit
+
+src/infrastructure/notion/notion.adapter.ts(125,7): error TS2353: Object literal may only specify known properties, and 'properties' does not exist in type 'WithAuth<CreateDatabaseBodyParameters>'.

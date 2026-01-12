@@ -1,0 +1,14 @@
+
+> scrapperoffre@1.0.0 lint
+> biome check . --write
+
+C:\RealProject\ScrapperOffre internalError/fs ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Biome couldn't find an ignore file in the following folder: C:\RealProject\ScrapperOffre
+  
+
+configuration ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Biome exited because the configuration resulted in errors. Please fix them.
+  
+

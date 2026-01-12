@@ -1,0 +1,13 @@
+
+> scrapperoffre@1.0.0 typecheck
+> tsc --noEmit
+
+src/infrastructure/notion/mock-notion.adapter.ts(4,14): error TS2420: Class 'MockNotionAdapter' incorrectly implements interface 'NotionPort'.
+  Type 'MockNotionAdapter' is missing the following properties from type 'NotionPort': searchPages, provisionDatabase
+src/infrastructure/notion/notion.adapter.ts(125,7): error TS2353: Object literal may only specify known properties, and 'properties' does not exist in type 'WithAuth<CreateDatabaseBodyParameters>'.
+src/interface/cli/main.ts(51,49): error TS2307: Cannot find module '../../infrastructure/db/job-offer.repository' or its corresponding type declarations.
+src/interface/cli/main.ts(82,48): error TS2307: Cannot find module '../../application/notion/sync-offers.use-case' or its corresponding type declarations.
+src/interface/worker/job-scheduler.ts(40,59): error TS2345: Argument of type 'MockNotionAdapter | NotionAdapter' is not assignable to parameter of type 'NotionPort'.
+  Type 'MockNotionAdapter' is missing the following properties from type 'NotionPort': searchPages, provisionDatabase
+src/manual-test.ts(37,57): error TS2345: Argument of type 'MockNotionAdapter' is not assignable to parameter of type 'NotionPort'.
+  Type 'MockNotionAdapter' is missing the following properties from type 'NotionPort': searchPages, provisionDatabase

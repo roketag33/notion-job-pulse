@@ -1,0 +1,45 @@
+
+> scrapperoffre@1.0.0 lint
+> biome check . --write
+
+C:\RealProject\ScrapperOffre\biome.json:2:14 deserialize ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i The configuration schema version does not match the CLI version 2.3.11
+  
+    1 │ {
+  > 2 │   "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+      │              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    3 │   "vcs": {
+    4 │     "enabled": true,
+  
+  i   Expected:                     2.3.11
+      Found:                        1.9.4
+  
+  
+  i Run the command biome migrate to migrate the configuration file.
+  
+
+C:\RealProject\ScrapperOffre\biome.json:10:5 deserialize ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Found an unknown key `ignore`.
+  
+     8 │   "files": {
+     9 │     "ignoreUnknown": false,
+  > 10 │     "ignore": ["node_modules", "dist", "coverage"]
+       │     ^^^^^^^^
+    11 │   },
+    12 │   "formatter": {
+  
+  i Known keys:
+  
+  - maxSize
+  - ignoreUnknown
+  - includes
+  - experimentalScannerIgnores
+  
+
+configuration ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Biome exited because the configuration resulted in errors. Please fix them.
+  
+
