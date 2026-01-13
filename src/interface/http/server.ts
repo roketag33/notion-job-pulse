@@ -27,7 +27,7 @@ export class HttpServer {
         this.app.use('/api', configRoutes(this.configService));
 
         // Fallback to index.html
-        this.app.get('*', (req, res) => {
+        this.app.get(/.*/, (req, res) => {
             res.sendFile(path.join(__dirname, 'public', 'index.html'));
         });
     }
