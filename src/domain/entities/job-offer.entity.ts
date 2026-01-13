@@ -13,7 +13,7 @@ export class JobOffer {
     public readonly status: JobOfferStatus = 'PENDING',
     public readonly createdAt: Date = new Date(),
     public readonly updatedAt: Date = new Date(),
-  ) {}
+  ) { }
 
   /**
    * Validation logic for the entity.
@@ -21,5 +21,21 @@ export class JobOffer {
    */
   public isValid(): boolean {
     return this.title.length > 0 && this.company.length > 0 && this.url.startsWith('http');
+  }
+
+  public markAsProcessed(): JobOffer {
+    return new JobOffer(
+      this.id,
+      this.title,
+      this.company,
+      this.location,
+      this.url,
+      this.source,
+      this.description,
+      this.salary,
+      'PROCESSED',
+      this.createdAt,
+      new Date(),
+    );
   }
 }

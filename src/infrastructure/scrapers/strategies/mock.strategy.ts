@@ -6,7 +6,7 @@ export class MockScraperStrategy extends ScraperStrategy {
   readonly name = 'MOCK_LINKEDIN';
   readonly baseUrl = 'http://localhost:3000'; // Dummy
 
-  async scrapeObject(page: Page): Promise<JobOffer[]> {
+  async scrapeObject(_page: Page): Promise<JobOffer[]> {
     console.log('Mock scraping executing...');
     // Return dummy data
     return [

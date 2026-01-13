@@ -1,7 +1,5 @@
-import type { JobOffer } from '../../domain/entities/job-offer.entity';
 import type { JobOfferRepositoryPort } from '../../domain/ports/repository.port';
 import type { ScraperPort } from '../../domain/ports/scraper.port';
-import { db } from '../../infrastructure/db/database'; // Direct dependency for now, to be refactored into Repository implementation
 
 // TEMPORARY: Direct DB access until Repository Adapter is ready
 // In Clean Arch, this should inject RepositoryPort.

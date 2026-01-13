@@ -1,7 +1,5 @@
 import { Command } from 'commander';
-import * as path from 'path';
 import { CryptoConfigService } from '../../infrastructure/config/crypto-config.service';
-import { JobOfferRepository } from '../../infrastructure/db/job-offer.repository';
 import { NotionAdapter } from '../../infrastructure/notion/notion.adapter';
 import { JobScheduler } from '../worker/job-scheduler';
 import { SetupWizard } from './setup-wizard';

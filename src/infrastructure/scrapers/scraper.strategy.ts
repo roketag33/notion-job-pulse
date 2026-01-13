@@ -18,7 +18,7 @@ export abstract class ScraperStrategy {
   /**
    * Optional: Login logic if required by the source.
    */
-  async login(page: Page): Promise<void> {
+  async login(_page: Page): Promise<void> {
     // Default: No login
   }
 }

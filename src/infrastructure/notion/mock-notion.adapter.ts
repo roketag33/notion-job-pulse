@@ -11,15 +11,15 @@ export class MockNotionAdapter implements NotionPort {
     return [];
   }
 
-  async updateDatabaseSchema(dbId: string): Promise<void> {
+  async updateDatabaseSchema(_dbId: string): Promise<void> {
     // no-op
   }
 
-  async findPageByUrl(url: string): Promise<string | null> {
+  async findPageByUrl(_url: string): Promise<string | null> {
     return null;
   }
 
-  async provisionDatabase(parentPageId: string): Promise<string> {
+  async provisionDatabase(_parentPageId: string): Promise<string> {
     return 'mock-db-id';
   }
 

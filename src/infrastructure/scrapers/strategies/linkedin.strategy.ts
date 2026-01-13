@@ -1,4 +1,4 @@
-import * as crypto from 'crypto';
+import * as crypto from 'node:crypto';
 import type { Page } from 'playwright';
 import { JobOffer } from '../../../domain/entities/job-offer.entity';
 import type { UserConfig } from '../../../domain/entities/user-config.entity';
@@ -30,7 +30,7 @@ export class LinkedInStrategy extends ScraperStrategy {
     try {
       await page.waitForURL('**/feed/**', { timeout: 15000 });
       console.log('✅ LinkedIn Login Successful');
-    } catch (e) {
+    } catch (_e) {
       console.error('❌ LinkedIn Login Failed (or 2FA required). Check screenshot.');
       // Continue anyway, maybe public search works?
     }
@@ -59,7 +59,7 @@ export class LinkedInStrategy extends ScraperStrategy {
         }
       });
       await page.waitForTimeout(2000);
-    } catch (e) {}
+    } catch (_e) {}
 
     const jobCards = await page.$$('.job-card-container');
     console.log(`Found ${jobCards.length} job cards.`);

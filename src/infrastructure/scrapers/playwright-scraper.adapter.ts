@@ -1,4 +1,4 @@
-import { type Browser, chromium, type Page } from 'playwright';
+import { type Browser, chromium } from 'playwright';
 import type { JobOffer } from '../../domain/entities/job-offer.entity';
 import type { ScraperPort } from '../../domain/ports/scraper.port';
 import type { ScraperStrategy } from './scraper.strategy';

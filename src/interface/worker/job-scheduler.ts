@@ -8,6 +8,7 @@ import { PlaywrightScraperAdapter } from '../../infrastructure/scrapers/playwrig
 import type { ScraperStrategy } from '../../infrastructure/scrapers/scraper.strategy';
 import { LinkedInStrategy } from '../../infrastructure/scrapers/strategies/linkedin.strategy';
 import { MockScraperStrategy } from '../../infrastructure/scrapers/strategies/mock.strategy';
+import { WTTJStrategy } from '../../infrastructure/scrapers/strategies/wttj.strategy';
 
 export class JobScheduler {
   constructor(private readonly config: UserConfig) {}
@@ -32,6 +33,10 @@ export class JobScheduler {
       console.log('📌 LinkedIn Scraper Enabled');
       strategies.push(new LinkedInStrategy(this.config));
     }
+
+    // WTTJ is enabled by default as it supports public search
+    console.log('📌 WTTJ Scraper Enabled');
+    strategies.push(new WTTJStrategy(this.config));
 
     const scrapers = strategies.map((s) => new PlaywrightScraperAdapter(s));
 
