@@ -6,6 +6,7 @@
     "scraper:setup": "tsx src/interface/cli/main.ts setup",
     "scraper:run": "tsx src/interface/cli/main.ts run",
     "scraper:sync": "tsx src/interface/cli/main.ts sync",
+    "scraper:daemon": "tsx src/interface/cli/main.ts daemon",
     "db:migrate": "tsx src/infrastructure/db/migrator.ts",
     "lint": "biome check . --write",
     "typecheck": "tsc --noEmit",

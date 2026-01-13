@@ -28,9 +28,23 @@ program
       process.exit(1);
     }
 
-    console.log('🚀 Starting Scrapper...');
+    console.log('🚀 Starting Scrapper (One-off)...');
     const scheduler = new JobScheduler(config);
-    await scheduler.start();
+    await scheduler.runOnce();
+  });
+
+program
+  .command('daemon')
+  .description('Start the scraper in daemon mode (scheduled loop)')
+  .action(async () => {
+    const config = configService.loadConfig();
+    if (!config) {
+      console.error('❌ No configuration found. Run "setup" first.');
+      process.exit(1);
+    }
+
+    const scheduler = new JobScheduler(config);
+    await scheduler.startDaemon();
   });
 
 program
