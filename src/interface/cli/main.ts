@@ -100,4 +100,14 @@ program
     console.log('✅ Sync command finished.');
   });
 
+program
+  .command('web')
+  .description('Start the Web Configuration Interface')
+  .action(async () => {
+    console.log('🌐 Starting Web Server...');
+    const { HttpServer } = await import('../http/server.js');
+    const server = new HttpServer(configService);
+    server.start();
+  });
+
 program.parse();

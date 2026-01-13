@@ -7,6 +7,7 @@
     "scraper:run": "tsx src/interface/cli/main.ts run",
     "scraper:sync": "tsx src/interface/cli/main.ts sync",
     "scraper:daemon": "tsx src/interface/cli/main.ts daemon",
+    "scraper:web": "tsx src/interface/cli/main.ts web",
     "db:migrate": "tsx src/infrastructure/db/migrator.ts",
     "lint": "biome check . --write",
     "typecheck": "tsc --noEmit",
@@ -19,8 +20,11 @@
   "dependencies": {
     "@notionhq/client": "^5.6.0",
     "better-sqlite3": "^12.6.0",
+    "body-parser": "^2.2.2",
     "commander": "^14.0.2",
+    "cors": "^2.8.5",
     "dotenv": "^17.2.3",
+    "express": "^5.2.1",
     "kysely": "^0.28.9",
     "playwright": "^1.57.0",
     "prompts": "^2.4.2",
@@ -32,6 +36,9 @@
   "devDependencies": {
     "@biomejs/biome": "^2.3.11",
     "@types/better-sqlite3": "^7.6.13",
+    "@types/body-parser": "^1.19.6",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
     "@types/node": "^25.0.6",
     "@types/prompts": "^2.4.9",
     "vitest": "^4.0.16"

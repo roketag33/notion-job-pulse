@@ -1,0 +1,201 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notion Job Pulse - Config</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: var(--card);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+        h1 { margin-top: 0; color: var(--primary); }
+        h2 { font-size: 1.25rem; margin-top: 2rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem; }
+        .form-group { margin-bottom: 1rem; }
+        label { display: block; font-weight: 500; margin-bottom: 0.5rem; }
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            box-sizing: border-box; /* Fix padding issue */
+        }
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+        button:hover { opacity: 0.9; }
+        .actions { display: flex; gap: 1rem; margin-top: 2rem; }
+        .btn-secondary { background: #64748b; }
+        #status { margin-top: 1rem; padding: 1rem; border-radius: 6px; display: none; }
+        .success { background: #dcfce7; color: #166534; }
+        .error { background: #fee2e2; color: #991b1b; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🌵 Notion Job Pulse</h1>
+    <p>Configure your scraper settings below.</p>
+
+    <form id="configForm">
+        <h2>Notion Integration</h2>
+        <div class="form-group">
+            <label>Notion Token</label>
+            <input type="password" id="notionToken" placeholder="secret_...">
+        </div>
+        <div class="form-group">
+            <label>Database ID</label>
+            <input type="text" id="notionDatabaseId" placeholder="xxxxxxxx">
+        </div>
+
+        <h2>Search Criteria</h2>
+        <div class="form-group">
+            <label>Keywords</label>
+            <input type="text" id="keywords" placeholder="e.g. Fullstack Developer">
+        </div>
+        <div class="form-group">
+            <label>Location</label>
+            <input type="text" id="location" placeholder="e.g. Paris">
+        </div>
+
+        <h2>Credentials (Optional)</h2>
+        <div class="form-group">
+            <label>LinkedIn Email</label>
+            <input type="email" id="linkedInEmail" placeholder="email@example.com">
+        </div>
+        <div class="form-group">
+            <label>LinkedIn Password</label>
+            <input type="password" id="linkedInPassword">
+        </div>
+        <div class="form-group">
+            <label>WTTJ Email</label>
+            <input type="email" id="wttjEmail">
+        </div>
+        <div class="form-group">
+            <label>WTTJ Password</label>
+            <input type="password" id="wttjPassword">
+        </div>
+        
+        <div class="form-group">
+             <label>Poll Interval (Minutes)</label>
+             <input type="number" id="pollIntervalMinutes" value="15">
+        </div>
+
+        <button type="submit">💾 Save Configuration</button>
+    </form>
+
+    <div class="actions">
+        <button type="button" class="btn-secondary" onclick="runScraper()">🚀 Run Scraper Now</button>
+    </div>
+
+    <div id="status"></div>
+</div>
+
+<script>
+    const API_URL = '/api';
+
+    async function loadConfig() {
+        try {
+            const res = await fetch(`${API_URL}/config`);
+            const config = await res.json();
+            
+            document.getElementById('notionToken').value = config.notionToken || '';
+            document.getElementById('notionDatabaseId').value = config.notionDatabaseId || '';
+            document.getElementById('keywords').value = config.search?.keywords || '';
+            document.getElementById('location').value = config.search?.location || '';
+            document.getElementById('linkedInEmail').value = config.scrapers?.linkedInEmail || '';
+            document.getElementById('linkedInPassword').value = config.scrapers?.linkedInPassword || '';
+            document.getElementById('wttjEmail').value = config.scrapers?.wttjEmail || '';
+            document.getElementById('wttjPassword').value = config.scrapers?.wttjPassword || '';
+            document.getElementById('pollIntervalMinutes').value = config.pollIntervalMinutes || 15;
+        } catch (err) {
+            showStatus('Failed to load config', 'error');
+        }
+    }
+
+    document.getElementById('configForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const config = {
+            notionToken: document.getElementById('notionToken').value,
+            notionDatabaseId: document.getElementById('notionDatabaseId').value,
+            search: {
+                keywords: document.getElementById('keywords').value,
+                location: document.getElementById('location').value
+            },
+            scrapers: {
+                linkedInEmail: document.getElementById('linkedInEmail').value,
+                linkedInPassword: document.getElementById('linkedInPassword').value,
+                wttjEmail: document.getElementById('wttjEmail').value,
+                wttjPassword: document.getElementById('wttjPassword').value
+            },
+            pollIntervalMinutes: parseInt(document.getElementById('pollIntervalMinutes').value, 10)
+        };
+
+        try {
+            const res = await fetch(`${API_URL}/config`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(config)
+            });
+            const data = await res.json();
+            if (data.success) {
+                showStatus('Configuration saved successfully!', 'success');
+            } else {
+                showStatus('Error saving: ' + data.message, 'error');
+            }
+        } catch (err) {
+            showStatus('Failed to save config', 'error');
+        }
+    });
+
+    async function runScraper() {
+        try {
+            const res = await fetch(`${API_URL}/run`, { method: 'POST' });
+            const data = await res.json();
+            showStatus(data.message, 'success');
+        } catch (err) {
+            showStatus('Failed to trigger run', 'error');
+        }
+    }
+
+    function showStatus(msg, type) {
+        const el = document.getElementById('status');
+        el.textContent = msg;
+        el.className = type;
+        el.style.display = 'block';
+        setTimeout(() => el.style.display = 'none', 5000);
+    }
+
+    // Load on start
+    loadConfig();
+</script>
+
+</body>
+</html>
