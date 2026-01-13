@@ -25,9 +25,20 @@ export class SyncOffersUseCase {
       try {
         console.log(`Syncing offer: ${offer.title}...`);
 
-        // Send to Notion
-        const notionPageId = await this.notion.createJobPage(offer);
-        console.log(` -> Synced to Notion (Page ID: ${notionPageId})`);
+        // Check for duplicates
+        const existingPageId = await this.notion.findPageByUrl(offer.url);
+
+        let notionPageId: string;
+        if (existingPageId) {
+          console.log(
+            ` -> ⚠️ Offer already exists in Notion (Page ID: ${existingPageId}). Skipping creation.`,
+          );
+          notionPageId = existingPageId;
+        } else {
+          // Send to Notion
+          notionPageId = await this.notion.createJobPage(offer);
+          console.log(` -> Synced to Notion (Page ID: ${notionPageId})`);
+        }
 
         // Update local status
         // Create a copy or mutate? Entities are usually immutable-ish, but for now specific update.

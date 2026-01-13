@@ -22,4 +22,10 @@ export interface NotionPort {
    * @returns The new Database ID.
    */
   provisionDatabase(parentPageId: string): Promise<string>;
+
+  /**
+   * Find a page by its URL property.
+   * @returns The Page ID if found, null otherwise.
+   */
+  findPageByUrl(url: string): Promise<string | null>;
 }
